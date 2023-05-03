@@ -1,22 +1,26 @@
-import logo from './logo.svg';
+import TextField from './TextField';
+import openai from 'openai';
 import './App.css';
 
 function App() {
+
+  // const openai = require('openai');
+  // const openaiClient = new openai('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');
+
   return (
     <div className="App">
+      <h1 className="title">OpenAI Doc Generator</h1>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <div className="gridMain">
+
+          <a>Enter a Filename or Query:</a>
+          <div className="textfield">
+            <TextField />
+          </div>
+
+        </div>
+
       </header>
     </div>
   );
