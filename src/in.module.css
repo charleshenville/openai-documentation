@@ -1,0 +1,14 @@
+.main{
+    min-height:10vh;
+    min-width:100%;
+    align-self: end;
+    border-radius: 5px;
+}
+
+.button{
+    justify-content: left;
+    align-items: center;
+    margin-left: 2vh;
+    margin-top: 3vh;
+}
+
