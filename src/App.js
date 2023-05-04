@@ -30,7 +30,7 @@ function App() {
     let resp = generateText({prompt});
     console.log({resp});
     // setResponse({resp});
-    setPrompt('');
+    setResponse('This totally works and everything is fine...');
     setEntryTxt('Provide a Prompt...');
   }
 
