@@ -2,24 +2,64 @@ import TextField from './TextField';
 import Submit from './Submit';
 import './App.css';
 
-import openai from 'openai';
+import { Configuration, OpenAIApi } from "openai";
 import axios from 'axios';
 
 import { useState } from "react";
 import { useEffect } from "react";
 
+const apiKey = "";
+
 function App() {
 
-  // const openai = require('openai');
-  // const openaiClient = new openai('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');
   const [response, setResponse] = useState('');
   const [fileContents, setFileContents] = useState('');
-  const [prompt, setPrompt] = useState('');
-  
+  let [prompt, setPrompt] = useState('');
+  const [entryTxt, setEntryTxt] = useState('Provide a Prompt...');
+  const [isDisabled, setDisabled] = useState(false);
+
+  class OpenAI {
+    constructor(apiKey) {
+      // Create the Configuration and OpenAIApi instances
+      this.openai = new OpenAIApi(new Configuration( "" ));
+    }
+  }
+
+  function handleSubmission() {
+    setEntryTxt('Generating Prompt...');
+    let resp = generateText({prompt});
+    console.log({resp});
+    // setResponse({resp});
+    setPrompt('');
+    setEntryTxt('Provide a Prompt...');
+  }
+
+  async function generateText(prompt2API) {
+    const max_tokens = 50;
+    const temperature = 0.85;
+    const model = 'davinci';
+
+    try {
+      // Send a request to the OpenAI API to generate text
+      const response = await this.openai.createCompletion({
+        model,
+        prompt2API,
+        max_tokens,
+        n: 1,
+        temperature,
+      });
+      console.log(`request cost: ${response.data.usage.total_tokens} tokens`);
+      // Return the text of the response
+      return (response.data.choices[0].text).toString();
+    } catch (error) {
+      console.log("Something went wrong!");
+    }
+  }
+
   return (
     <div className="App">
       <div className="title">
-        <h1>OpenAI Documentation Generator</h1>
+        <h1>Autom8ed Documentation</h1>
       </div>
       <header className="App-header">
 
@@ -27,9 +67,9 @@ function App() {
 
           <a className='qu'>Enter a Filename or Query:</a>
           <div className="textfield">
-            <TextField />
+            <TextField placeholder={entryTxt} />
           </div>
-          <Submit/>
+          <Submit value={prompt} onClick={handleSubmission} disabled={isDisabled} />
           <a className="out">Output: </a>
           <div className='outContainer'>
             <a>{response}</a>

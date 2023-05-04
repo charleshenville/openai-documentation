@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styles from "./in.module.css"
 
-function TextField() {
+function TextField({placeholder}) {
 
     const [text, setText] = useState('');
 
@@ -18,7 +18,7 @@ function TextField() {
                 type="text"
                 value={text}
                 onChange={handleChange}
-                placeholder="Type something..."
+                placeholder={placeholder}
             />
 
         </div>
